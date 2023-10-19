@@ -14,5 +14,6 @@ public class ErrorResponse {
     private final String status;
     private final String response;
     private final String message;
+    private final String path;
     private final LocalDateTime time;
 }

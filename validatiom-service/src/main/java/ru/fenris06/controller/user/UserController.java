@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.fenris06.client.UserClient;
+import ru.fenris06.client.user.UserClient;
 import ru.fenris06.dto.UserDto;
 import ru.fenris06.validation.Create;
 import ru.fenris06.validation.Update;

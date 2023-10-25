@@ -1,4 +1,4 @@
-package ru.fenris06.controller.user;
+package ru.fenris06.controller;
 
 
 import org.springframework.http.HttpStatus;

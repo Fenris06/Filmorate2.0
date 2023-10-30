@@ -2,8 +2,10 @@ package ru.fenris06.client;
 
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.reactive.function.client.ExchangeFilterFunction;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
+import ru.fenris06.exception.ErrorResponse;
 import ru.fenris06.exception.NotFoundException;
 
 public class BaseClient {
@@ -11,6 +13,7 @@ public class BaseClient {
 
     public BaseClient(String url) {
         this.webClient = WebClient.builder()
+                .filter(errorHandler())
                 .baseUrl(url)
                 .build();
     }
@@ -31,9 +34,6 @@ public class BaseClient {
                 .uri(uri)
                 .body(Mono.just(body), body.getClass())
                 .retrieve()
-                .onStatus(HttpStatus::is4xxClientError,
-                        clientResponse ->
-                                Mono.error(() -> new NotFoundException(clientResponse.toString())))
                 .bodyToMono(body.getClass())
                 .block();
     }
@@ -46,5 +46,21 @@ public class BaseClient {
                 .bodyToMono(Object[].class).log();
         Object[] userDtos = response.block();
         return userDtos;
+        //TODO придумать как сделать get без Object
+    }
+
+    public static ExchangeFilterFunction errorHandler() {
+        return ExchangeFilterFunction.ofResponseProcessor(clientResponse -> {
+            if (clientResponse.statusCode().equals(HttpStatus.NOT_FOUND)) {
+                return clientResponse.bodyToMono(ErrorResponse.class)
+                        .flatMap(errorBody -> Mono.error(new NotFoundException(errorBody.getMessage())));
+            } else if (clientResponse.statusCode().equals(HttpStatus.INTERNAL_SERVER_ERROR)) {
+                return clientResponse.bodyToMono(String.class)
+                        .flatMap(errorBody -> Mono.error(new Exception(errorBody)));
+            } else {
+                return Mono.just(clientResponse);
+            }
+        });
     }
 }
+

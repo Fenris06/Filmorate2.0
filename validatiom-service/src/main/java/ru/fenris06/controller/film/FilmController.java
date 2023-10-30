@@ -21,13 +21,13 @@ public class FilmController {
     @PostMapping
     @Validated(Create.class)
     public FilmDto create(@RequestBody @Valid FilmDto filmDto) {
-        return filmClient.create(filmDto);
+        return filmClient.createFilm(filmDto);
     }
 
     @PutMapping
     @Validated(Update.class)
     public FilmDto update(@RequestBody @Valid FilmDto filmDto) {
-        return filmClient.update(filmDto);
+        return filmClient.updateFilm(filmDto);
     }
 
     @GetMapping

@@ -18,6 +18,7 @@ import java.util.List;
 @Slf4j
 @Validated
 public class UserController {
+
     private final UserClient userClient;
 
     @PostMapping

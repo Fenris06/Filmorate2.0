@@ -9,7 +9,11 @@ public class UserMapper {
         User user = new User();
         user.setEmail(userDto.getEmail());
         user.setLogin(userDto.getLogin());
-        user.setName(userDto.getName());
+        if (userDto.getName() == null || userDto.getName().isBlank()) {
+            user.setName(userDto.getLogin());
+        } else {
+            user.setName(userDto.getName().trim());
+        }
         user.setBirthday(userDto.getBirthday());
         return user;
     }

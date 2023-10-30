@@ -1,5 +1,4 @@
-package ru.fenris06.validation;
-
+package ru.fenris06.validation.annatation;
 
 
 import javax.validation.ConstraintValidator;

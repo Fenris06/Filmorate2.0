@@ -6,6 +6,8 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
 
+import java.util.Set;
+
 
 @Getter
 @Setter
@@ -24,4 +26,9 @@ public class User {
     private String name;
     @Column(name = "birthday", nullable = false)
     private LocalDate birthday;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "friends",
+    joinColumns = @JoinColumn(name = "user_id"),
+    inverseJoinColumns = @JoinColumn(name = "friend_id"))
+    private Set<User> friends;
 }

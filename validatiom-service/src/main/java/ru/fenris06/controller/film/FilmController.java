@@ -34,5 +34,25 @@ public class FilmController {
     public List<FilmDto> getFilms() {
         return filmClient.getFilms();
     }
+
+    @GetMapping("{id}")
+    public FilmDto getFilm(@PathVariable("id") Long id) {
+        return filmClient.getFilm(id);
+    }
+
+    @PutMapping("{id}/like/{userId}")
+    public void addLike(@PathVariable("id") Long id, @PathVariable("userId") Long userId) {
+        filmClient.addLike(id, userId);
+    }
+
+    @DeleteMapping("{id}/like/{userId}")
+    public void deleteLike(@PathVariable("id") Long id, @PathVariable("userId") Long userId) {
+        filmClient.deleteLike(id, userId);
+    }
+
+    @GetMapping("/popular")
+    public List<FilmDto> getPopularFilms(@RequestParam(name = "count", defaultValue = "10", required = false) Integer count) {
+        return filmClient.getPopularFilms(count);
+    }
 }
 

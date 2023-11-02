@@ -17,6 +17,8 @@ import java.util.stream.Collectors;
 @Service
 public class FilmClient extends BaseClient {
     private static final String URI = "/films";
+    private static final String LIKE = "/like";
+    private static final String POPULAR = "/popular";
 
     public FilmClient(@Value("${client.url:http://localhost:8081}") String url) {
         super(url);
@@ -32,6 +34,30 @@ public class FilmClient extends BaseClient {
 
     public List<FilmDto> getFilms() {
         Object[] films = get(URI);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        return Arrays.stream(films)
+                .map(o -> mapper.convertValue(o, FilmDto.class))
+                .collect(Collectors.toList());
+    }
+
+    public FilmDto getFilm(Long id) {
+        Object film = get(URI, id);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        return mapper.convertValue(film, FilmDto.class);
+    }
+
+    public void addLike(Long id, Long userId) {
+        put(URI, LIKE, id, userId);
+    }
+
+    public void deleteLike(Long id, Long userId) {
+        delete(URI, LIKE, id, userId);
+    }
+
+    public List<FilmDto> getPopularFilms(Integer count) {
+        Object[] films = getQuery(URI, POPULAR, count);
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
         return Arrays.stream(films)

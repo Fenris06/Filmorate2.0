@@ -2,6 +2,7 @@ package ru.fenris06.model.user;
 
 import lombok.Getter;
 import lombok.Setter;
+import ru.fenris06.model.film.Film;
 
 import javax.persistence.*;
 import java.time.LocalDate;

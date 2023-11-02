@@ -2,9 +2,11 @@ package ru.fenris06.model.film;
 
 import lombok.Getter;
 import lombok.Setter;
+import ru.fenris06.model.user.User;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Set;
 
 
 @Getter
@@ -24,4 +26,9 @@ public class Film {
     private LocalDate releaseDate;
     @Column(name = "duration", nullable = false)
     private Integer duration;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "likes",
+    joinColumns = @JoinColumn(name = "film_id"),
+    inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private Set<User> likes;
 }

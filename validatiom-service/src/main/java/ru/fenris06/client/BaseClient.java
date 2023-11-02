@@ -84,20 +84,30 @@ public class BaseClient {
                 .block();
     }
 
+    public Object[] getQuery(String uri, String path, Integer count) {
+        Mono<Object[]> response = webClient.get().uri(uriBuilder -> uriBuilder
+                        .path(uri + path)
+                        .queryParam("count", "{count}").build(count))
+                .retrieve()
+                .bodyToMono(Object[].class).log();
+        Object[] userDtos = response.block();
+        return userDtos;
+    }
+
     public void put(String url, String path, Long firstId, Long secondId) {
         webClient.put().uri(uriBuilder -> uriBuilder
-                .path(url + "/{firstId}/" + path + "/{secondId}/")
-                .build(firstId, secondId))
+                        .path(url + "/{firstId}" + path + "/{secondId}")
+                        .build(firstId, secondId))
                 .retrieve()
                 .bodyToMono(Object.class)
                 .block();
-                //.subscribe();
+        //.subscribe();
     }
 
     public void delete(String url, String path, Long firstId, Long secondId) {
         webClient.delete().uri(uriBuilder -> uriBuilder
-                .path(url + "/{firstId}/" + path + "/{secondId}/")
-                .build(firstId,secondId))
+                        .path(url + "/{firstId}" + path + "/{secondId}")
+                        .build(firstId, secondId))
                 .retrieve()
                 .bodyToMono(Object.class)
                 .block();

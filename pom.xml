@@ -9,6 +9,8 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>Filmorate-service</module>
+        <module>Filmorate-Utilits</module>
+        <module>validatiom-service</module>
     </modules>
 
     <packaging>pom</packaging>

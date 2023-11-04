@@ -52,7 +52,6 @@ public class UserServiceImpl implements UserService {
         User user = findUserById(id);
         User friend = findUserById(friendId);
         user.getFriends().add(friend);
-        friend.getFriends().add(user);
         userRepository.saveAll(List.of(user, friend));
     }
 

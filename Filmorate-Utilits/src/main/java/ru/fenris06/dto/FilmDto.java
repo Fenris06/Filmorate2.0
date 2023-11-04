@@ -10,6 +10,7 @@ import ru.fenris06.validation.Update;
 
 import javax.validation.constraints.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -27,4 +28,6 @@ public class FilmDto {
     @NotNull(message = "Field id can't be null if you update", groups = {Update.class, Create.class})
     @Positive(message = "Field id must be positive", groups = {Update.class, Create.class})
     private Integer duration;
+    private MpaDto mpa;
+    private List<GenreDto> genres;
 }

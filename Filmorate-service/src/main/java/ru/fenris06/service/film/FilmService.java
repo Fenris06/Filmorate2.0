@@ -1,23 +1,24 @@
 package ru.fenris06.service.film;
 
-import ru.fenris06.dto.FilmDto;
+import ru.fenris06.dto.FilmInputDto;
+import ru.fenris06.dto.FilmOutDto;
 
 
 import java.util.List;
 
 public interface FilmService {
 
-    FilmDto create(FilmDto filmDto);
+    FilmOutDto create(FilmInputDto filmDto);
 
-    FilmDto update(FilmDto filmDto);
+    FilmOutDto update(FilmInputDto filmDto);
 
-    List<FilmDto> getFilms();
+    List<FilmOutDto> getFilms();
 
     void addLike(Long id, Long userId);
 
     void deleteLike(Long id, Long userId);
 
-    List<FilmDto> getPopularFilms(Integer count);
+    List<FilmOutDto> getPopularFilms(Integer count);
 
-    FilmDto getFilm(Long id);
+    FilmOutDto getFilm(Long id);
 }

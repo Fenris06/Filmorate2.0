@@ -26,11 +26,17 @@ public class UserClient extends BaseClient {
     }
 
     public UserDto createUser(UserDto userDto) {
-        return (UserDto) create(userDto, URI);
+        Object user = create(userDto, URI);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        return mapper.convertValue(user, UserDto.class);
     }
 
     public UserDto updateUser(UserDto userDto) {
-        return (UserDto) update(userDto, URI);
+        Object user = update(userDto, URI);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        return mapper.convertValue(user, UserDto.class);
     }
 
     public List<UserDto> getUsers() {

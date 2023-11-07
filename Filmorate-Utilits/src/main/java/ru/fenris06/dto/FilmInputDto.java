@@ -14,7 +14,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class FilmDto {
+public class FilmInputDto {
     @NotNull(message = "Field id can't be null if you update", groups = Update.class)
     private Long Id;
     @NotBlank(message = "Field name can't be null, empty or only with whitespace", groups = {Update.class, Create.class})

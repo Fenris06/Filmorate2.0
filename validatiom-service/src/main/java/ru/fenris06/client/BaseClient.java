@@ -24,7 +24,7 @@ public class BaseClient {
                 .uri(uri)
                 .body(Mono.just(body), body.getClass())
                 .retrieve()
-                .bodyToMono(body.getClass())
+                .bodyToMono(Object.class)
                 .block();
     }
 
@@ -34,7 +34,7 @@ public class BaseClient {
                 .uri(uri)
                 .body(Mono.just(body), body.getClass())
                 .retrieve()
-                .bodyToMono(body.getClass())
+                .bodyToMono(Object.class)
                 .block();
     }
 

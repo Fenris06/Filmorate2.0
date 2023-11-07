@@ -4,7 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.fenris06.client.film.FilmClient;
-import ru.fenris06.dto.FilmDto;
+import ru.fenris06.dto.FilmInputDto;
+import ru.fenris06.dto.FilmOutDto;
 import ru.fenris06.validation.Create;
 import ru.fenris06.validation.Update;
 
@@ -20,23 +21,23 @@ public class FilmController {
 
     @PostMapping
     @Validated(Create.class)
-    public FilmDto create(@RequestBody @Valid FilmDto filmDto) {
+    public FilmOutDto create(@RequestBody @Valid FilmInputDto filmDto) {
         return filmClient.createFilm(filmDto);
     }
 
     @PutMapping
     @Validated(Update.class)
-    public FilmDto update(@RequestBody @Valid FilmDto filmDto) {
+    public FilmOutDto update(@RequestBody @Valid FilmInputDto filmDto) {
         return filmClient.updateFilm(filmDto);
     }
 
     @GetMapping
-    public List<FilmDto> getFilms() {
+    public List<FilmOutDto> getFilms() {
         return filmClient.getFilms();
     }
 
     @GetMapping("{id}")
-    public FilmDto getFilm(@PathVariable("id") Long id) {
+    public FilmOutDto getFilm(@PathVariable("id") Long id) {
         return filmClient.getFilm(id);
     }
 
@@ -51,7 +52,7 @@ public class FilmController {
     }
 
     @GetMapping("/popular")
-    public List<FilmDto> getPopularFilms(@RequestParam(name = "count", defaultValue = "10", required = false) Integer count) {
+    public List<FilmOutDto> getPopularFilms(@RequestParam(name = "count", defaultValue = "10", required = false) Integer count) {
         return filmClient.getPopularFilms(count);
     }
 }

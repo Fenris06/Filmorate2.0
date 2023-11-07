@@ -2,10 +2,13 @@ package ru.fenris06.model.film;
 
 import lombok.Getter;
 import lombok.Setter;
+import ru.fenris06.model.genre.Genre;
+import ru.fenris06.model.mpa.Mpa;
 import ru.fenris06.model.user.User;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 
@@ -26,6 +29,14 @@ public class Film {
     private LocalDate releaseDate;
     @Column(name = "duration", nullable = false)
     private Integer duration;
+    @ManyToOne
+    @JoinColumn(name = "mpa_id")
+    private Mpa mpa;
+    @ManyToMany
+    @JoinTable(name = "film_genres",
+    joinColumns = @JoinColumn(name = "film_id"),
+    inverseJoinColumns = @JoinColumn(name = "genre_id"))
+    private List<Genre> genres;
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "likes",
     joinColumns = @JoinColumn(name = "film_id"),

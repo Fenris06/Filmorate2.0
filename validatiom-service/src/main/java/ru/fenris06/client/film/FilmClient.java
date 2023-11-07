@@ -7,7 +7,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import ru.fenris06.client.BaseClient;
-import ru.fenris06.dto.FilmDto;
+import ru.fenris06.dto.FilmInputDto;
+import ru.fenris06.dto.FilmOutDto;
 
 
 import java.util.Arrays;
@@ -24,28 +25,34 @@ public class FilmClient extends BaseClient {
         super(url);
     }
 
-    public FilmDto createFilm(FilmDto filmDto) {
-        return (FilmDto) create(filmDto, URI);
+    public FilmOutDto createFilm(FilmInputDto filmDto) {
+        Object film = create(filmDto, URI);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        return mapper.convertValue(film, FilmOutDto.class);
     }
 
-    public FilmDto updateFilm(FilmDto filmDto) {
-        return (FilmDto) update(filmDto, URI);
+    public FilmOutDto updateFilm(FilmInputDto filmDto) {
+        Object film = update(filmDto, URI);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        return mapper.convertValue(film, FilmOutDto.class);
     }
 
-    public List<FilmDto> getFilms() {
+    public List<FilmOutDto> getFilms() {
         Object[] films = get(URI);
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
         return Arrays.stream(films)
-                .map(o -> mapper.convertValue(o, FilmDto.class))
+                .map(o -> mapper.convertValue(o, FilmOutDto.class))
                 .collect(Collectors.toList());
     }
 
-    public FilmDto getFilm(Long id) {
+    public FilmOutDto getFilm(Long id) {
         Object film = get(URI, id);
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
-        return mapper.convertValue(film, FilmDto.class);
+        return mapper.convertValue(film, FilmOutDto.class);
     }
 
     public void addLike(Long id, Long userId) {
@@ -56,12 +63,12 @@ public class FilmClient extends BaseClient {
         delete(URI, LIKE, id, userId);
     }
 
-    public List<FilmDto> getPopularFilms(Integer count) {
+    public List<FilmOutDto> getPopularFilms(Integer count) {
         Object[] films = getQuery(URI, POPULAR, count);
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
         return Arrays.stream(films)
-                .map(o -> mapper.convertValue(o, FilmDto.class))
+                .map(o -> mapper.convertValue(o, FilmOutDto.class))
                 .collect(Collectors.toList());
     }
 }

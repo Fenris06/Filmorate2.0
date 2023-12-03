@@ -1,5 +1,7 @@
 package ru.fenris06.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import lombok.Setter;
@@ -12,6 +14,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
+@EqualsAndHashCode
 @ToString
 public class UserDto {
     @NotNull(message = "Field id can't be null if you update", groups = Update.class)

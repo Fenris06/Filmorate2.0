@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  filmorate-service:
+    build: Filmorate-service
+    image: filmorate-service-image
+    container_name: filmorate-service-container
+    ports:
+      - "8081:8081"
+    depends_on:
+      - filmorate-db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://filmorate-db:5432/film-service
+      - SPRING_DATASOURCE_USER=filmorate
+      - SPRING_DATASOURCE_PASSWORD=filmorate
+
+  filmorate-db:
+    image: postgres:14-alpine
+    container_name: filmorate-db-container
+    ports:
+      - "6540:5432"
+    environment:
+      - POSTGRES_DB=film-service
+      - POSTGRES_USER=filmorate
+      - POSTGRES_PASSWORD=filmorate
+
+  validation-service:
+    build: validatiom-service
+    image: validatiom-service-image
+    container_name: validatiom-service-container
+    ports:
+      - "8080:8080"
+    depends_on:
+      - filmorate-service
+
+    environment:
+      - client.url=http://filmorate-service:8081
+
+
+

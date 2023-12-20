@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
         User user = findUserById(id);
         User friend = findUserById(friendId);
         user.getFriends().add(friend);
-        userRepository.saveAll(List.of(user, friend));
+        userRepository.save(user);
     }
 
     @Override
@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteFriend(Long id, Long friendId) {
         User user = findUserById(id);
-        User deleteUser = findUserById(friendId);
+        User deleteUser = findUserById(friendId); //TODO подумать над удалением юзера.
         user.getFriends().remove(deleteUser);
         userRepository.save(user);
     }

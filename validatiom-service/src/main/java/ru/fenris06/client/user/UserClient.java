@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class UserClient extends BaseClient {
+    private final ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
     private static final String URI = "/users";
     private static final String FRIENDS_URI = "/friends";
     private static final String COMMON_URI = "/common";
@@ -27,22 +28,16 @@ public class UserClient extends BaseClient {
 
     public UserDto createUser(UserDto userDto) {
         Object user = create(userDto, URI);
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
         return mapper.convertValue(user, UserDto.class);
     }
 
     public UserDto updateUser(UserDto userDto) {
         Object user = update(userDto, URI);
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
         return mapper.convertValue(user, UserDto.class);
     }
 
     public List<UserDto> getUsers() {
         Object[] users = get(URI);
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
         return Arrays.stream(users)
                 .map(o -> mapper.convertValue(o, UserDto.class))
                 .collect(Collectors.toList());
@@ -50,8 +45,6 @@ public class UserClient extends BaseClient {
 
     public UserDto getUser(Long id) {
         Object user = get(URI, id);
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
         return mapper.convertValue(user, UserDto.class);
     }
 
@@ -61,8 +54,6 @@ public class UserClient extends BaseClient {
 
     public List<UserDto> getFriends(Long id) {
         Object[] users = get(URI, id, FRIENDS_URI);
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
         return Arrays.stream(users)
                 .map(o -> mapper.convertValue(o, UserDto.class))
                 .collect(Collectors.toList());
@@ -74,8 +65,6 @@ public class UserClient extends BaseClient {
 
     public List<UserDto> getCommon(Long id, Long otherId) {
         Object[] users = get(URI, id, FRIENDS_URI + COMMON_URI, otherId);
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
         return Arrays.stream(users)
                 .map(o -> mapper.convertValue(o, UserDto.class))
                 .collect(Collectors.toList());

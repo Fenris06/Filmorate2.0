@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
         User user = findUserById(id);
         User friend = findUserById(friendId);
         user.getFriends().add(friend);
-        userRepository.saveAll(List.of(user, friend));
+        userRepository.save(user);
     }
 
     @Override

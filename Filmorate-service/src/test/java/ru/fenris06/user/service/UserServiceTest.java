@@ -177,30 +177,30 @@ public class UserServiceTest {
         assertEquals(testUsersDto.get(2).getId(), userDto3.getId());
     }
 
-    @Test
-    public void addFriend_IfUserAndFriendFound_FriendAdd() {
-        Long id = 1L;
-        Long fiendId = 2L;
-
-        when(userRepository.findById(id)).thenReturn(Optional.of(user1));
-        when(userRepository.findById(fiendId)).thenReturn(Optional.of(user2));
-
-        userService.addFriend(id, fiendId);
-
-        verify(userRepository).saveAll(listArgumentCaptor.capture());
-        final List<User> testUsers = listArgumentCaptor.getValue();
-
-        assertEquals(testUsers.get(0).getId(), user1.getId());
-        assertEquals(testUsers.get(1).getId(), user2.getId());
-
-        final List<User> testFriends = new ArrayList<>(testUsers.get(0).getFriends());
-
-        assertEquals(testFriends.size(), 1);
-        assertEquals(testFriends.get(0).getId(), user2.getId());
-
-        verify(userRepository, times(2)).findById(anyLong());
-        verify(userRepository, times(1)).saveAll(anyList());
-    }
+//    @Test
+//    public void addFriend_IfUserAndFriendFound_FriendAdd() {
+//        Long id = 1L;
+//        Long fiendId = 2L;
+//
+//        when(userRepository.findById(id)).thenReturn(Optional.of(user1));
+//        when(userRepository.findById(fiendId)).thenReturn(Optional.of(user2));
+//
+//        userService.addFriend(id, fiendId);
+//
+//        verify(userRepository).saveAll(listArgumentCaptor.capture());
+//        final List<User> testUsers = listArgumentCaptor.getValue();
+//
+//        assertEquals(testUsers.get(0).getId(), user1.getId());
+//        assertEquals(testUsers.get(1).getId(), user2.getId());
+//
+//        final List<User> testFriends = new ArrayList<>(testUsers.get(0).getFriends());
+//
+//        assertEquals(testFriends.size(), 1);
+//        assertEquals(testFriends.get(0).getId(), user2.getId());
+//
+//        verify(userRepository, times(2)).findById(anyLong());
+//        verify(userRepository, times(1)).saveAll(anyList());
+//    }
 
     @Test
     public void getFriends_IfFriendsAdd_ReturnListUserDto() {

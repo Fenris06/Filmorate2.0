@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class UserClient extends BaseClient {
+
     private final ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
     private static final String URI = "/users";
     private static final String FRIENDS_URI = "/friends";

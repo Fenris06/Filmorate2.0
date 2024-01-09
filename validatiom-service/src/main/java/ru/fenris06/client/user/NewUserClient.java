@@ -6,9 +6,7 @@ import ru.fenris06.client.NewBaseClient;
 import ru.fenris06.dto.UserDto;
 
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Service

@@ -5,12 +5,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.fenris06.client.user.NewUserClient;
-import ru.fenris06.client.user.UserClient;
 import ru.fenris06.dto.UserDto;
 import ru.fenris06.validation.Create;
 import ru.fenris06.validation.Update;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import java.util.List;
 
@@ -20,12 +18,11 @@ import java.util.List;
 @Slf4j
 @Validated
 public class UserController {
-   // private final UserClient userClient;
     private final NewUserClient newUserClient;
 
     @PostMapping
     @Validated(Create.class)
-    public UserDto createUser(@RequestBody @Valid UserDto userDto) {
+    public UserDto createUser(@RequestBody UserDto userDto) {
         return newUserClient.createUser(userDto);
     }
 
@@ -56,9 +53,10 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}/friends/{friendId}")
-    public void deleteFriend (@PathVariable("id") Long id, @PathVariable("friendId") Long friendId) {
-       newUserClient.deleteFriend(id, friendId);
+    public void deleteFriend(@PathVariable("id") Long id, @PathVariable("friendId") Long friendId) {
+        newUserClient.deleteFriend(id, friendId);
     }
+
     @GetMapping("/{id}/friends/common/{otherId}")
     public List<UserDto> getCommon(@PathVariable("id") Long id, @PathVariable("otherId") Long otherId) {
         return newUserClient.getCommon(id, otherId);

@@ -9,6 +9,7 @@ import reactor.core.publisher.Mono;
 import ru.fenris06.exception.ErrorResponse;
 import ru.fenris06.exception.NotFoundException;
 
+
 import java.util.List;
 
 public class NewBaseClient<T> {
@@ -26,7 +27,7 @@ public class NewBaseClient<T> {
         return (T) webClient
                 .post()
                 .uri(uri)
-                .body(Mono.just(body), body.getClass())
+                .bodyValue(body)
                 .retrieve()
                 .bodyToMono(body.getClass())
                 .block();
@@ -36,47 +37,44 @@ public class NewBaseClient<T> {
         return (T) webClient
                 .put()
                 .uri(uri)
-                .body(Mono.just(body), body.getClass())
+                .bodyValue(body)
                 .retrieve()
                 .bodyToMono(body.getClass())
                 .block();
     }
 
     public List<T> get(String uri) {
-        Mono<List<T>> response = webClient
+        return webClient
                 .get()
                 .uri(uri)
                 .retrieve()
-                .bodyToMono(new ParameterizedTypeReference<List<T>>() {});
-        List<T> userDtos = response.block();
-        return userDtos;
-        //TODO придумать как сделать get без Object
+                .bodyToMono(new ParameterizedTypeReference<List<T>>() {
+                })
+                .block();
     }
 
     public List<T> get(String uri, Long id, String path) {
-        Mono<List<T>> response = webClient
+        return webClient
                 .get()
                 .uri(uriBuilder -> uriBuilder
                         .path(uri + "/{id}" + path)
                         .build(id))
                 .retrieve()
-                .bodyToMono(new ParameterizedTypeReference<List<T>>() {});
-        List<T> userDtos = response.block();;
-        return userDtos;
-        //TODO придумать как сделать get без Object
+                .bodyToMono(new ParameterizedTypeReference<List<T>>() {
+                })
+                .block();
     }
 
     public List<T> get(String uri, Long first, String path, Long secondId) {
-        Mono<List<T>> response = webClient
+        return webClient
                 .get()
                 .uri(uriBuilder -> uriBuilder
                         .path(uri + "/{id}" + path + "/{secondId}")
                         .build(first, secondId))
                 .retrieve()
-                .bodyToMono(new ParameterizedTypeReference<List<T>>() {});
-        List<T> userDtos = response.block();
-        return userDtos;
-        //TODO придумать как сделать get без Object
+                .bodyToMono(new ParameterizedTypeReference<List<T>>() {
+                })
+                .block();
     }
 
     public T get(String uri, Long id, T body) {
@@ -88,14 +86,14 @@ public class NewBaseClient<T> {
                 .block();
     }
 
-    public Object[] getQuery(String uri, String path, Integer count) {
-        Mono<Object[]> response = webClient.get().uri(uriBuilder -> uriBuilder
+    public List<T> getQuery(String uri, String path, Integer count) {
+        return webClient.get().uri(uriBuilder -> uriBuilder
                         .path(uri + path)
                         .queryParam("count", "{count}").build(count))
                 .retrieve()
-                .bodyToMono(Object[].class).log();
-        Object[] userDtos = response.block();
-        return userDtos;
+                .bodyToMono(new ParameterizedTypeReference<List<T>>() {
+                })
+                .block();
     }
 
     public void put(String url, String path, Long firstId, Long secondId) {

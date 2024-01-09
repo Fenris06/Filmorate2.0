@@ -132,18 +132,18 @@ class UserServiceImplIntegrationTest {
     }
 
 
-//    @Test
-//    void addFriend_IfFriendFound() {
-//        final User testUser1 = userRepository.save(user1);
-//        final User testUser2 = userRepository.save(user2);
-//        final User testUser3 = userRepository.save(user3);
-//
-//        userService.addFriend(testUser1.getId(), testUser3.getId());
-//
-//        final User userWithFriend = userRepository.findById(testUser1.getId()).orElseThrow(()-> new NotFoundException("User not found"));
-//
-//        assertEquals(userWithFriend.getFriends().size(), 1);
-//    }
+    @Test
+    void addFriend_IfFriendFound() {
+        final User testUser1 = userRepository.save(user1);
+        final User testUser2 = userRepository.save(user2);
+        final User testUser3 = userRepository.save(user3);
+
+        userService.addFriend(testUser1.getId(), testUser3.getId());
+
+        final User userWithFriend = userRepository.findById(testUser1.getId()).orElseThrow(() -> new NotFoundException("User not found"));
+
+        assertEquals(userWithFriend.getFriends().size(), 1);
+    }
 
     @Test
     void getFriends() {

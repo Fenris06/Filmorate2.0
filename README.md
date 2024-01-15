@@ -6,6 +6,7 @@
 # Technologies Used
 * Java 11
 * Springboot 2.7.9
+* Hibernate
 * Lombok
 * PostgreSql
 * H2 database for test

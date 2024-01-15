@@ -5,7 +5,7 @@
 * **Filmorate-service** основной сервис приложения. В нем содержится вся бизнесслогика и реализована взаимодестивие с базой данны через ORM framework Hibernate.
 # Technologies Used
 * Java 11
-* Springboot 7.7.9
+* Springboot 2.7.9
 * Lombok
 * PostgreSql
 * H2 database for test

@@ -1,6 +1,6 @@
 package ru.fenris06.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 

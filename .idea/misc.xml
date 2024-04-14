@@ -10,6 +10,7 @@
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/film-server/pom.xml" />
+        <option value="$PROJECT_DIR$/validation-service/pom.xml" />
       </set>
     </option>
   </component>

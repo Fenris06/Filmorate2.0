@@ -7,12 +7,12 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/searcher-service/pom.xml" />
         <option value="$PROJECT_DIR$/film-searcher-utils/pom.xml" />
+        <option value="$PROJECT_DIR$/validation-service/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/film-server/pom.xml" />
-        <option value="$PROJECT_DIR$/validation-service/pom.xml" />
       </set>
     </option>
   </component>

@@ -10,7 +10,7 @@
     <modules>
         <module>searcher-service</module>
         <module>film-searcher-utils</module>
-        <module>validatiom-service</module>
+        <module>validation-service</module>
     </modules>
 
     <packaging>pom</packaging>

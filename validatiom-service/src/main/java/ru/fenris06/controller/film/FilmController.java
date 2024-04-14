@@ -61,6 +61,7 @@ public class FilmController {
     public void deleteLike(@PathVariable("id") @Parameter(description = "Film Id", required = true) Long id,
                            @PathVariable("userId") @Parameter(description = "User Id", required = true) Long userId) {
         filmClient.deleteLike(id, userId);
+
     }
 
     @GetMapping("/popular")

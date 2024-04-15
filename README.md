@@ -10,7 +10,7 @@
 * Lombok
 * PostgreSql
 * H2 database for test
-* Spring webClien
+* Spring webClient
 * Swagger
 * Maven
 * Mockito

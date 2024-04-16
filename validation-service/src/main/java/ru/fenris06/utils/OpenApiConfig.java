@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.info.Info;
 
 @OpenAPIDefinition(
         info = @Info(
-                title = "Filmorate 2.0 Api",
+                title = "film-searcher Api",
                 description = "Loyalty System", version = "1.0.0",
                 contact = @Contact(
                         name = "Karpushenko Artem",
